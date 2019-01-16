@@ -1,4 +1,4 @@
-package com.application.sfy.lyric;
+package com.application.sfy.modules.news;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.application.sfy.R;
-import com.application.sfy.data.model.Lyric;
+import com.application.sfy.data.model.News;
 import com.application.sfy.ui.EmptyView;
 import com.application.sfy.utils.Utils;
 
@@ -23,12 +23,11 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
-import static com.application.sfy.tracklist.TrackListActivity.LYRICS_PARAMS_KEY;
-
 /**
  * stargazer activity
  */
-public class LyricActivity extends DaggerAppCompatActivity implements LyricContract.LyricsView {
+public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView {
+    private static final String LYRICS_PARAMS_KEY = "LYRICS_PARAMS_KEY";
     @BindView(R.id.artistNameTextViewId)
     TextView artistNameTextView;
     @BindView(R.id.trackNameTextViewId)
@@ -44,7 +43,7 @@ public class LyricActivity extends DaggerAppCompatActivity implements LyricContr
     EmptyView emptyView;
 
     @Inject
-    LyricPresenter presenter;
+    NewsPresenter presenter;
 
     private Unbinder unbinder;
     private SparseArray<String> params;
@@ -69,7 +68,7 @@ public class LyricActivity extends DaggerAppCompatActivity implements LyricContr
      */
     private void onInitView() {
         initActionbar();
-        params = Utils.getLyricsParamsFromBundle(getIntent().getExtras().getBundle(LYRICS_PARAMS_KEY));
+//        params = Utils.getLyricsParamsFromBundle(getIntent().getExtras().getBundle(LYRICS_PARAMS_KEY));
         presenter.bindView(this);
         presenter.retrieveItems(params);
     }
@@ -104,13 +103,13 @@ public class LyricActivity extends DaggerAppCompatActivity implements LyricContr
     }
 
     @Override
-    public void onRenderData(Lyric lyric) {
+    public void onRenderData(News news) {
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
         artistNameTextView.setText(params.get(1));
         trackNameTextView.setText(params.get(2));
         Utils.renderIcon(avatarImageView, params.get(3));
-        lyricsTextView.setText(lyric.getLyricsBody());
+        lyricsTextView.setText(news.getDescription());
     }
 
 
@@ -135,12 +134,12 @@ public class LyricActivity extends DaggerAppCompatActivity implements LyricContr
     /**
      * build intent
      * @param context
-     * @param trackId
      * @return
      */
-    public static Intent buildIntent(Context context, Integer trackId, String artistName, String trackName, String avatarUrl) {
-        Bundle bundle = Utils.buildLyricsParams(Integer.toString(trackId), artistName, trackName, avatarUrl);
-        Intent intent = new Intent(context, LyricActivity.class);
+    public static Intent buildIntent(Context context) {
+//        Bundle bundle = Utils.buildLyricsParams(Integer.toString(trackId), artistName, trackName, avatarUrl);
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(context, NewsActivity.class);
         intent.putExtra(LYRICS_PARAMS_KEY, bundle);
         return intent;
     }

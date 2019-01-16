@@ -2,9 +2,7 @@ package com.application.sfy.data.remote.services;
 
 
 import com.application.sfy.BuildConfig;
-import com.application.sfy.data.model.Lyric;
-import com.application.sfy.data.model.Track;
-import com.application.sfy.data.remote.services.gson.LyricsJsonDeserializer;
+import com.application.sfy.data.model.News;
 import com.application.sfy.data.remote.services.gson.TrackJsonDeserializer;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +20,7 @@ public class RetrofitServiceRx {
      * get service
      * @return
      */
-    public TracksService getSoundtrackRetrofit() {
+    public NewsService getNewsRetrofit() {
         try {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
@@ -33,11 +31,11 @@ public class RetrofitServiceRx {
                     .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
-                            .registerTypeAdapter(new TypeToken<List<Track>>(){}.getType(), new TrackJsonDeserializer())
-                            .registerTypeAdapter(Lyric.class, new LyricsJsonDeserializer())
+                            .registerTypeAdapter(new TypeToken<List<News>>(){}.getType(), new TrackJsonDeserializer())
+//                            .registerTypeAdapter(News.class, new LyricsJsonDeserializer())
                             .create()))
                     .build()
-                    .create(TracksService.class);
+                    .create(NewsService.class);
         } catch (Exception e) {
             throw new UnsupportedOperationException(e.getMessage());
         }

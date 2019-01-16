@@ -1,22 +1,22 @@
-package com.application.sfy.lyric;
+package com.application.sfy.modules.news;
 
 import android.util.SparseArray;
 
 import com.application.sfy.BasePresenter;
-import com.application.sfy.data.model.Lyric;
+import com.application.sfy.data.model.News;
 
-public interface LyricContract {
+public interface NewsContract {
 
-    interface LyricsView {
-        void onRenderData(Lyric item);
+    interface NewsView {
+        void onRenderData(News item);
         void onError(String error);
         void showStandardLoading();
         void hideStandardLoading();
     }
-    interface LyricsPresenterInterface extends BasePresenter {
+    interface NewsPresenterInterface extends BasePresenter {
         void unsubscribe();
         void retrieveItems(SparseArray<String> params);
-        void bindView(LyricsView view);
+        void bindView(NewsView view);
         void deleteView();
     }
 }

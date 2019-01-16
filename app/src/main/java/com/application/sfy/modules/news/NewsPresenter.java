@@ -1,10 +1,10 @@
-package com.application.sfy.lyric;
+package com.application.sfy.modules.news;
 
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.application.sfy.data.LyricsRepository;
-import com.application.sfy.data.model.Lyric;
+import com.application.sfy.data.model.News;
 
 import java.lang.ref.WeakReference;
 
@@ -17,9 +17,9 @@ import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class LyricPresenter implements LyricContract.LyricsPresenterInterface {
+public class NewsPresenter implements NewsContract.NewsPresenterInterface {
     private static final String TAG = "TrackPresenter";
-    private static WeakReference<LyricContract.LyricsView> wifiDeviceNetworkView;
+    private static WeakReference<NewsContract.NewsView> wifiDeviceNetworkView;
     private final LyricsRepository repository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     protected ProgressLoader loader;
@@ -27,7 +27,7 @@ public class LyricPresenter implements LyricContract.LyricsPresenterInterface {
     private int N_ITEM_PAGE = 2;
 
     @Inject
-    LyricPresenter(LyricsRepository repository) {
+    NewsPresenter(LyricsRepository repository) {
         this.repository = repository;
     }
 
@@ -42,7 +42,7 @@ public class LyricPresenter implements LyricContract.LyricsPresenterInterface {
      * @param view
      */
     @Override
-    public void bindView(LyricContract.LyricsView view) {
+    public void bindView(NewsContract.NewsView view) {
         wifiDeviceNetworkView = new WeakReference<>(view);
         loader = new ProgressLoader(
                 view::showStandardLoading,
@@ -65,7 +65,7 @@ public class LyricPresenter implements LyricContract.LyricsPresenterInterface {
     public void retrieveItems(SparseArray<String> params) {
         Log.e(TAG, params.toString());
         compositeDisposable.add(repository
-                .getLyrics(params.get(0))
+                .getNews(params.get(0))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(composeLoaderTransformer(loader))
@@ -82,7 +82,7 @@ public class LyricPresenter implements LyricContract.LyricsPresenterInterface {
      * @param <T>
      * @return
      */
-    <T extends Lyric>ObservableTransformer<T, T> composeLoaderTransformer(ProgressLoader loader) {
+    <T extends News>ObservableTransformer<T, T> composeLoaderTransformer(ProgressLoader loader) {
         return upstream -> upstream
                 .doOnSubscribe(disposable -> loader.show.run())
                 .doOnError(error -> loader.hide.run())

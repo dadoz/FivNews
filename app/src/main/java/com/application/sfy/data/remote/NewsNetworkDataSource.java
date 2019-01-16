@@ -1,7 +1,7 @@
 package com.application.sfy.data.remote;
 
-import com.application.sfy.data.LyricsDataSource;
-import com.application.sfy.data.model.Lyric;
+import com.application.sfy.data.NewsDataSource;
+import com.application.sfy.data.model.News;
 import com.application.sfy.data.remote.services.RetrofitServiceRx;
 
 import javax.inject.Singleton;
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
  */
 
 @Singleton
-public class LyricsNetworkDataSource extends RetrofitDataSourceBase implements LyricsDataSource {
+public class NewsNetworkDataSource extends RetrofitDataSourceBase implements NewsDataSource {
 //    public Observable<Lyric> getLyrics(Context context, String owner, String repo) {
 //        try {
 //            InputStream inputStream = context.getAssets().open("sound_track_lyrics_response_200.json");
@@ -41,21 +41,21 @@ public class LyricsNetworkDataSource extends RetrofitDataSourceBase implements L
      * @param apiKey
      * @return
      */
-    public Observable<Lyric> getLyrics(String trackId, String apiKey) {
-        return new RetrofitServiceRx().getSoundtrackRetrofit()
-                .getLyrics(trackId, apiKey)
+    public Observable<News> getNews(String trackId, String apiKey) {
+        return new RetrofitServiceRx().getNewsRetrofit()
+                .getNews(trackId, apiKey)
                 .compose(handleRxErrorsTransformer());
     }
 
-    /**
-     * TODO plese refactorize
-     */
-    @Override
-    public void setLyrics(Lyric lyric, String trackId) {
-    }
+//    /**
+//     * TODO plese refactorize
+//     */
+//    @Override
+//    public void setLyrics(Lyric lyric, String trackId) {
+//    }
 
-    @Override
-    public boolean hasLyrics(String trackId) {
-        return false;
-    }
+//    @Override
+//    public boolean hasLyrics(String trackId) {
+//        return false;
+//    }
 }
