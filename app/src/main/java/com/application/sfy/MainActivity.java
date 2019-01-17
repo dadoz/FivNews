@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.application.sfy.modules.news.NewsActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -38,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void onInitView() {
 //        trackInputDataView.setFindButtonOnClickListener(this);
+        Intent intent = NewsActivity.buildIntent(this);
+        startActivity(intent);
     }
 
     @Override

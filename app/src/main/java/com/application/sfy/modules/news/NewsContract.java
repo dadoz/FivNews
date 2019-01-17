@@ -5,10 +5,12 @@ import android.util.SparseArray;
 import com.application.sfy.BasePresenter;
 import com.application.sfy.data.model.News;
 
+import java.util.List;
+
 public interface NewsContract {
 
     interface NewsView {
-        void onRenderData(News item);
+        void onRenderData(List<News> item);
         void onError(String error);
         void showStandardLoading();
         void hideStandardLoading();

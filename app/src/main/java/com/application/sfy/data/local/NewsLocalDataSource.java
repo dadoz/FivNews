@@ -3,14 +3,11 @@ package com.application.sfy.data.local;
 import com.application.sfy.data.NewsDataSource;
 import com.application.sfy.data.model.News;
 
+import java.util.List;
+
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
 
 /**
  * In Ram memory storage
@@ -18,7 +15,7 @@ import io.realm.Realm;
 @Singleton
 public class NewsLocalDataSource implements NewsDataSource {
     @Override
-    public Observable<News> getNews(String request, String apiKey) {
+    public Observable<List<News>> getNews(String request, String apiKey) {
         return null;
     }
 

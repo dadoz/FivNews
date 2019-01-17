@@ -3,10 +3,11 @@ package com.application.sfy.modules.news;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.application.sfy.data.LyricsRepository;
+import com.application.sfy.data.NewsRepository;
 import com.application.sfy.data.model.News;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,15 +20,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NewsPresenter implements NewsContract.NewsPresenterInterface {
     private static final String TAG = "TrackPresenter";
-    private static WeakReference<NewsContract.NewsView> wifiDeviceNetworkView;
-    private final LyricsRepository repository;
+    private static WeakReference<NewsContract.NewsView> newsView;
+    private final NewsRepository repository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     protected ProgressLoader loader;
     private int limit = 0;
     private int N_ITEM_PAGE = 2;
 
     @Inject
-    NewsPresenter(LyricsRepository repository) {
+    NewsPresenter(NewsRepository repository) {
         this.repository = repository;
     }
 
@@ -43,7 +44,7 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
      */
     @Override
     public void bindView(NewsContract.NewsView view) {
-        wifiDeviceNetworkView = new WeakReference<>(view);
+        newsView = new WeakReference<>(view);
         loader = new ProgressLoader(
                 view::showStandardLoading,
                 view::hideStandardLoading);
@@ -54,7 +55,7 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
      */
     @Override
     public void deleteView() {
-        wifiDeviceNetworkView.clear();
+        newsView.clear();
     }
 
     /**
@@ -71,8 +72,8 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
                 .compose(composeLoaderTransformer(loader))
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(
-                        items -> wifiDeviceNetworkView.get().onRenderData(items),
-                        error ->wifiDeviceNetworkView.get().onError(error.getMessage())));
+                        items -> newsView.get().onRenderData(items),
+                        error -> newsView.get().onError(error.getMessage())));
     }
 
 
@@ -82,7 +83,7 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
      * @param <T>
      * @return
      */
-    <T extends News>ObservableTransformer<T, T> composeLoaderTransformer(ProgressLoader loader) {
+    <T extends List<News>>ObservableTransformer<T, T> composeLoaderTransformer(ProgressLoader loader) {
         return upstream -> upstream
                 .doOnSubscribe(disposable -> loader.show.run())
                 .doOnError(error -> loader.hide.run())

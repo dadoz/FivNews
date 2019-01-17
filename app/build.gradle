@@ -10,8 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "SFY_BASE_URL", "\"http://api.musixmatch.com/ws/1.1/\""
-        buildConfigField "String", "API_KEY", "\"1c9e075968d686e586bc8bee13b82ca0\""
+        buildConfigField "String", "NEWSAPI_BASE_URL", "\"https://newsapi.org/v2/\""
+        buildConfigField "String", "API_KEY", "\"184ce70ed2fb482a9abdb7900730d51a\""
 
     }
     compileOptions {

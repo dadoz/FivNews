@@ -3,18 +3,19 @@ package com.application.sfy.modules.news;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.application.sfy.R;
 import com.application.sfy.data.model.News;
 import com.application.sfy.ui.EmptyView;
-import com.application.sfy.utils.Utils;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,18 +29,21 @@ import dagger.android.support.DaggerAppCompatActivity;
  */
 public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView {
     private static final String LYRICS_PARAMS_KEY = "LYRICS_PARAMS_KEY";
-    @BindView(R.id.artistNameTextViewId)
-    TextView artistNameTextView;
-    @BindView(R.id.trackNameTextViewId)
-    TextView trackNameTextView;
-    @BindView(R.id.avatarImageViewId)
-    ImageView avatarImageView;
-    @BindView(R.id.lyricsTextViewId)
-    TextView lyricsTextView;
+//    @BindView(R.id.artistNameTextViewId)
+//    TextView artistNameTextView;
+//    @BindView(R.id.trackNameTextViewId)
+//    TextView trackNameTextView;
+//    @BindView(R.id.avatarImageViewId)
+//    ImageView avatarImageView;
+//    @BindView(R.id.lyricsTextViewId)
+//    TextView lyricsTextView;
 
-    @BindView(R.id.lyricsProgressbarId)
+    @BindView(R.id.newsRecyclerViewId)
+    RecyclerView newsRecyclerView;
+
+    @BindView(R.id.newsProgressbarId)
     ProgressBar progressBar;
-    @BindView(R.id.lyricsEmptyViewId)
+    @BindView(R.id.emptyViewId)
     EmptyView emptyView;
 
     @Inject
@@ -51,8 +55,10 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lyrics);
+        setContentView(R.layout.activity_news_list);
         unbinder = ButterKnife.bind(this);
+        params = new SparseArray<>();
+        params.put(0, "google-news-it");
         onInitView();
     }
 
@@ -103,13 +109,15 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     }
 
     @Override
-    public void onRenderData(News news) {
+    public void onRenderData(List<News> list) {
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
-        artistNameTextView.setText(params.get(1));
-        trackNameTextView.setText(params.get(2));
-        Utils.renderIcon(avatarImageView, params.get(3));
-        lyricsTextView.setText(news.getDescription());
+        newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));
+//        artistNameTextView.setText(params.get(1));
+//        trackNameTextView.setText(params.get(2));
+//        Utils.renderIcon(avatarImageView, params.get(3));
+//        lyricsTextView.setText(news.getDescription());
     }
 
 
@@ -117,8 +125,9 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     public void onError(String error) {
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.VISIBLE);
-        Snackbar.make(findViewById(R.id.activity_main), R.string.retrieve_error,
-                Snackbar.LENGTH_SHORT).show();
+        Log.e(getClass().getName(), "-->" + error);
+//        Snackbar.make(findViewById(R.id.activity_main), R.string.retrieve_error,
+//                Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

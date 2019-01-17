@@ -4,6 +4,8 @@ import com.application.sfy.data.NewsDataSource;
 import com.application.sfy.data.model.News;
 import com.application.sfy.data.remote.services.RetrofitServiceRx;
 
+import java.util.List;
+
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
@@ -37,13 +39,13 @@ public class NewsNetworkDataSource extends RetrofitDataSourceBase implements New
 
     /**
      *
-     * @param trackId
+     * @param source
      * @param apiKey
      * @return
      */
-    public Observable<News> getNews(String trackId, String apiKey) {
+    public Observable<List<News>> getNews(String source, String apiKey) {
         return new RetrofitServiceRx().getNewsRetrofit()
-                .getNews(trackId, apiKey)
+                .getTopHeadlinesNews(source, apiKey)
                 .compose(handleRxErrorsTransformer());
     }
 

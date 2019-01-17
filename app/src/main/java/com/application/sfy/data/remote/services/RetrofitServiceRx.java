@@ -3,7 +3,7 @@ package com.application.sfy.data.remote.services;
 
 import com.application.sfy.BuildConfig;
 import com.application.sfy.data.model.News;
-import com.application.sfy.data.remote.services.gson.TrackJsonDeserializer;
+import com.application.sfy.data.remote.services.gson.NewsJsonDeserializer;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,11 +27,11 @@ public class RetrofitServiceRx {
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
             return new Retrofit.Builder()
-                    .baseUrl(BuildConfig.SFY_BASE_URL)
+                    .baseUrl(BuildConfig.NEWSAPI_BASE_URL)
                     .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
-                            .registerTypeAdapter(new TypeToken<List<News>>(){}.getType(), new TrackJsonDeserializer())
+                            .registerTypeAdapter(new TypeToken<List<News>>(){}.getType(), new NewsJsonDeserializer())
 //                            .registerTypeAdapter(News.class, new LyricsJsonDeserializer())
                             .create()))
                     .build()

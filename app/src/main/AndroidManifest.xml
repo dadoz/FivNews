@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".modules.tracklist.TrackListActivity"/>
         <activity android:name=".modules.news.NewsActivity"/>
     </application>
 
