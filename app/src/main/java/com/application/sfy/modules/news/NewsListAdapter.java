@@ -41,7 +41,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
 
             View view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.track_item, viewGroup, false);
+                    .inflate(R.layout.news_item, viewGroup, false);
             return new NewsListAdapter.ViewHolder(view);
         }
 
@@ -49,9 +49,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (viewHolder instanceof ViewHolder) {
                 News news = items.get(position);
-//                setAvatar((ViewHolder) viewHolder, track.getAlbumCoverart100x100());
-                ((ViewHolder) viewHolder).trackNameTextview.setText(news.getDescription());
-//                ((ViewHolder) viewHolder).artistNameTextview.setText(track.getArtistName());
+                setAvatar((ViewHolder) viewHolder, news.getUrlToImage());
+                ((ViewHolder) viewHolder).trackNameTextview.setText(news.getTitle());
+                ((ViewHolder) viewHolder).artistNameTextview.setText(news.getDescription());
                 if (listener != null)
                     ((ViewHolder) viewHolder).itemView.setOnClickListener(view -> listener.onTrackItemClick(view, items.get(position)));
             }
@@ -120,8 +120,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
              */
             private RetrieveMoreTrackViewHolder(View view) {
                 super(view);
-                view.findViewById(R.id.loadMoreTrackButtonId)
-                        .setOnClickListener(v -> listener2.onTrackLoadMoreClick(v));
+                if (listener2 != null)
+                    view.findViewById(R.id.loadMoreTrackButtonId)
+                            .setOnClickListener(v -> listener2.onTrackLoadMoreClick(v));
             }
 
         }

@@ -112,6 +112,7 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     public void onRenderData(List<News> list) {
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
+        Log.e(getClass().getName(), "hey --->");
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));
 //        artistNameTextView.setText(params.get(1));
