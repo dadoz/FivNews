@@ -4,6 +4,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
+        <item name="actionBarStyle">@style/Theme.App.ActionBar</item>
 
+    </style>
+    <style name="Theme.App.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <!-- remove shadow below action bar -->
+        <!-- <item name="android:elevation">0dp</item> -->
+        <!-- Support library compatibility -->
+        <item name="elevation">0dp</item>
+        <item name="background">@color/colorPrimary</item>
+    </style>
 </resources>

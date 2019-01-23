@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.application.sfy.ui.EmptyView
+    <com.application.fivnews.ui.EmptyView
         android:id="@+id/emptyViewId"
         android:visibility="gone"
         android:layout_width="match_parent"

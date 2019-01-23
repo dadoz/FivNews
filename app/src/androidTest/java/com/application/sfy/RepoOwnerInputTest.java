@@ -1,4 +1,4 @@
-package com.application.sfy;
+package com.application.fivnews;
 
 import android.support.design.widget.TextInputLayout;
 import android.support.test.rule.ActivityTestRule;
