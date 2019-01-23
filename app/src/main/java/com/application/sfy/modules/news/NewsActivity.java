@@ -28,15 +28,6 @@ import dagger.android.support.DaggerAppCompatActivity;
  * stargazer activity
  */
 public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView {
-    private static final String LYRICS_PARAMS_KEY = "LYRICS_PARAMS_KEY";
-//    @BindView(R.id.artistNameTextViewId)
-//    TextView artistNameTextView;
-//    @BindView(R.id.trackNameTextViewId)
-//    TextView trackNameTextView;
-//    @BindView(R.id.avatarImageViewId)
-//    ImageView avatarImageView;
-//    @BindView(R.id.lyricsTextViewId)
-//    TextView lyricsTextView;
 
     @BindView(R.id.newsRecyclerViewId)
     RecyclerView newsRecyclerView;
@@ -74,7 +65,6 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
      */
     private void onInitView() {
         initActionbar();
-//        params = Utils.getLyricsParamsFromBundle(getIntent().getExtras().getBundle(LYRICS_PARAMS_KEY));
         presenter.bindView(this);
         presenter.retrieveItems(params);
     }
@@ -84,11 +74,11 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
      * actionbar set listener and back arrow
      */
     private void initActionbar() {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setHomeButtonEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
     }
 
     /**
@@ -112,13 +102,8 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     public void onRenderData(List<News> list) {
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
-        Log.e(getClass().getName(), "hey --->");
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));
-//        artistNameTextView.setText(params.get(1));
-//        trackNameTextView.setText(params.get(2));
-//        Utils.renderIcon(avatarImageView, params.get(3));
-//        lyricsTextView.setText(news.getDescription());
     }
 
 
@@ -147,10 +132,6 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
      * @return
      */
     public static Intent buildIntent(Context context) {
-//        Bundle bundle = Utils.buildLyricsParams(Integer.toString(trackId), artistName, trackName, avatarUrl);
-        Bundle bundle = new Bundle();
-        Intent intent = new Intent(context, NewsActivity.class);
-        intent.putExtra(LYRICS_PARAMS_KEY, bundle);
-        return intent;
+        return new Intent(context, NewsActivity.class);
     }
 }
