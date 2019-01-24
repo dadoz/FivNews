@@ -43,8 +43,8 @@ public class NewsPageAdapter extends PagerAdapter {
             TextView newsPublisherNameTextView =  parentView.get().findViewById(R.id.newsPublisherNameTextViewId);
 
             News news = items.get(position);
-            Utils.renderCircleImage(newsPublisherIcon, "https://images-eu.ssl-images-amazon.com/images/I/31B%2BQMn-V2L.png");
-            newsPublisherNameTextView.setText(news.getSource().getName());
+            Utils.renderCircleImage(newsPublisherIcon, news.getSource().getNewspaperLogoUrl());
+            newsPublisherNameTextView.setText(news.getSource().getNewspaperName());
         }
     }
 

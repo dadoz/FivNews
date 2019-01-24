@@ -15,7 +15,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component(modules = {
         NewsRepositoryModule.class,
-//        TracksRepositoryModule.class,
         ApplicationModule.class,
         ActivityBindingModule.class,
         AndroidSupportInjectionModule.class})

@@ -12,6 +12,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "NEWSAPI_BASE_URL", "\"https://newsapi.org/v2/\""
         buildConfigField "String", "API_KEY", "\"184ce70ed2fb482a9abdb7900730d51a\""
+        buildConfigField "String", "CLEARBIT_LOOKUP_BASE_URL", "\"https://company.clearbit.com/v2/\"" ////companies/find
+        buildConfigField "String", "CLEARBIT_API_USER", "\"sk_858f2816fd4f36e41f955ff034ece01a\""
+
 
     }
     compileOptions {

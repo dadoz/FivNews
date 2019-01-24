@@ -13,6 +13,9 @@ public class Source {
     @Expose
     private String name;
 
+    private String newspaperName;
+    private String newspaperLogoUrl;
+
     public String getId() {
         return id;
     }
@@ -29,4 +32,19 @@ public class Source {
         this.name = name;
     }
 
+    public String getNewspaperLogoUrl() {
+        return newspaperLogoUrl;
+    }
+
+    public void setNewspaperLogoUrl(String newspaperLogoUrl) {
+        this.newspaperLogoUrl = newspaperLogoUrl;
+    }
+
+    public String getNewspaperName() {
+        return newspaperName;
+    }
+
+    public void setNewspaperName(String newspaperName) {
+        this.newspaperName = newspaperName;
+    }
 }
