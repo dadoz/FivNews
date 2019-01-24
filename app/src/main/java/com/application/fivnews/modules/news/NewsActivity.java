@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
@@ -16,8 +14,6 @@ import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
 import com.application.fivnews.modules.news.adapter.NewsPageAdapter;
 import com.application.fivnews.ui.EmptyView;
-import com.application.fivnews.ui.VerticalViewPager;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.List;
@@ -40,7 +36,7 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     @BindView(R.id.newsDotIndicatorId)
     WormDotsIndicator newsDotIndicator;
     @BindView(R.id.newsViewpagerId)
-    VerticalViewPager newsViewpager;
+    ViewPager newsViewpager;
     @BindView(R.id.newsProgressbarId)
     ProgressBar progressBar;
     @BindView(R.id.emptyViewId)

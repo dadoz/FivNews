@@ -37,15 +37,11 @@
             app:dotsWidthFactor="2.5"
             app:progressMode="true"
             />
-        <com.application.fivnews.ui.VerticalViewPager
+        <android.support.v4.view.ViewPager
             android:id="@+id/newsViewpagerId"
             android:layout_below="@+id/newsDotIndicatorId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
     </RelativeLayout>
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/newsRecyclerViewId"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
 </FrameLayout>
