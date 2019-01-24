@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.MaterialComponents.CardView"
@@ -7,7 +8,6 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
-    android:layout_margin="@dimen/margin_16"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -32,11 +32,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="end"
-                android:fontFamily="@font/khand_semibold"
+                android:fontFamily="@font/khand"
                 android:layout_marginBottom="@dimen/margin_8"
                 android:maxLines="2"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/font_18"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_22"
                 tools:text="this is a title to present our news" />
             <TextView
                 android:id="@+id/artistNameTextViewId"

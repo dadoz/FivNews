@@ -1,6 +1,7 @@
-package com.application.fivnews.modules.news;
+package com.application.fivnews.modules.news.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,6 @@ import com.application.fivnews.utils.Utils;
 import java.util.List;
 
 public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-
     private List<News> items;
         private OnTrackItemClickListener listener;
         private OnTrackLoadMoreClickListener listener2;
@@ -72,7 +71,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          * @param avatarUrl
          */
         private void setAvatar(ViewHolder vh, String avatarUrl) {
-            Utils.renderIcon(vh.avatarImageView, avatarUrl);
+            Utils.renderCardViewImage(vh.avatarImageView, ((MaterialCardView) vh.itemView), avatarUrl);
         }
 
         /**
@@ -91,7 +90,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         /**
          * Track view holder
          */
-        protected class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView artistNameTextview;
             private final TextView trackNameTextview;
             private final ImageView avatarImageView;
@@ -124,10 +123,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     view.findViewById(R.id.loadMoreTrackButtonId)
                             .setOnClickListener(v -> listener2.onTrackLoadMoreClick(v));
             }
-
         }
-
-
 
         /**
          * track item click cb

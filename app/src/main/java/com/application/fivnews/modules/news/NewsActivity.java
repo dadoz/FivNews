@@ -3,6 +3,7 @@ package com.application.fivnews.modules.news;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,7 +14,11 @@ import android.widget.ProgressBar;
 
 import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
+import com.application.fivnews.modules.news.adapter.NewsPageAdapter;
 import com.application.fivnews.ui.EmptyView;
+import com.application.fivnews.ui.VerticalViewPager;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.List;
 
@@ -29,9 +34,13 @@ import dagger.android.support.DaggerAppCompatActivity;
  */
 public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView {
 
-    @BindView(R.id.newsRecyclerViewId)
-    RecyclerView newsRecyclerView;
+//    @BindView(R.id.newsRecyclerViewId)
+//    RecyclerView newsRecyclerView;
 
+    @BindView(R.id.newsDotIndicatorId)
+    WormDotsIndicator newsDotIndicator;
+    @BindView(R.id.newsViewpagerId)
+    VerticalViewPager newsViewpager;
     @BindView(R.id.newsProgressbarId)
     ProgressBar progressBar;
     @BindView(R.id.emptyViewId)
@@ -102,8 +111,11 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     public void onRenderData(List<News> list) {
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
-        newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));
+
+        newsViewpager.setAdapter(new NewsPageAdapter(list, findViewById(R.id.newsHeaderLayoutId)));
+        newsDotIndicator.setViewPager(newsViewpager);
+//        newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));
     }
 
 
@@ -125,6 +137,7 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     public void hideStandardLoading() {
         progressBar.setVisibility(View.GONE);
     }
+
 
     /**
      * build intent

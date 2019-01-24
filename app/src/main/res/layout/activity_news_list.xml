@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:background="@color/colorPrimary"
     android:layout_width="match_parent"
@@ -16,8 +17,35 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         style="@style/Widget.AppCompat.ProgressBar"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/newsRecyclerViewId"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+        <include layout="@layout/news_header_layout"/>
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:id="@+id/newsDotIndicatorId"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/newsHeaderLayoutId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsStrokeWidth="1dp"
+            app:dotsColor="@color/colorAccent"
+            app:dotsCornerRadius="@dimen/margin_4"
+            app:dotsSize="@dimen/margin_8"
+            app:dotsSpacing="2dp"
+            app:dotsWidthFactor="2.5"
+            app:progressMode="true"
+            />
+        <com.application.fivnews.ui.VerticalViewPager
+            android:id="@+id/newsViewpagerId"
+            android:layout_below="@+id/newsDotIndicatorId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/newsRecyclerViewId"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 </FrameLayout>
