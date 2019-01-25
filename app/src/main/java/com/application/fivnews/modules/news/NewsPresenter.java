@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import com.application.fivnews.data.NewsRepository;
 import com.application.fivnews.data.NewspaperLookupRepository;
 import com.application.fivnews.data.model.News;
+import com.application.fivnews.data.model.NewspaperInfo;
 import com.application.fivnews.data.remote.services.NewspaperLookupService;
 
 import java.lang.ref.WeakReference;
@@ -81,22 +82,36 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
                         error -> newsView.get().onError(error.getMessage())));
     }
 
+
+    /**
+     * retrieve item obs
+     */
+    @Override
+    public void retrieveNewspaperInfo(News news) {
+        compositeDisposable.add(Observable.just(news)
+                .compose(retrieveNewspaperInfo())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(composeLoaderTransformer(loader))
+                .doOnError(Throwable::printStackTrace)
+                .subscribe(
+                        item -> newsView.get().onRenderNewspaperInfo(item),
+                        error -> newsView.get().onErrorNewspaperInfo(error.getMessage())));
+    }
+
     /**
      *
      * @return
      */
-    private ObservableTransformer<List<News>, List<News>> retrieveNewspaperInfo() {
+    private ObservableTransformer<News, NewspaperInfo> retrieveNewspaperInfo() {
         return obs -> obs
-                .flatMap(newsList -> Observable.fromIterable(newsList)
                 .flatMap(news -> Observable.just(news)
                         .map(newsDeep -> new URL(newsDeep.getUrl()))
                         .map(url -> url.getProtocol() + "://" + url.getAuthority())
                         .doOnNext(url1 -> Log.e(getClass().getName(), url1))
                         .flatMap(newspaperLookupRepository::getNewspaperInfo)
                         .doOnNext(newspaperInfo -> news.getSource().setNewspaperName(newspaperInfo.getName()))
-                        .doOnNext(newspaperInfo -> news.getSource().setNewspaperLogoUrl(newspaperInfo.getLogo()))
-                        .map(x -> news))
-                .toList().toObservable());
+                        .doOnNext(newspaperInfo -> news.getSource().setNewspaperLogoUrl(newspaperInfo.getLogo())));
 
     }
 
@@ -107,7 +122,7 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
      * @param <T>
      * @return
      */
-    <T extends List<News>>ObservableTransformer<T, T> composeLoaderTransformer(ProgressLoader loader) {
+    <T> ObservableTransformer<T, T> composeLoaderTransformer(ProgressLoader loader) {
         return upstream -> upstream
                 .doOnSubscribe(disposable -> loader.show.run())
                 .doOnError(error -> loader.hide.run())

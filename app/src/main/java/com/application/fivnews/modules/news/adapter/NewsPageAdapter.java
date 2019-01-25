@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
+import com.application.fivnews.modules.news.NewsPresenter;
 import com.application.fivnews.utils.Utils;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
