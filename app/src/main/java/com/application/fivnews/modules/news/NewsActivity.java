@@ -29,10 +29,6 @@ import dagger.android.support.DaggerAppCompatActivity;
  * stargazer activity
  */
 public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView {
-
-//    @BindView(R.id.newsRecyclerViewId)
-//    RecyclerView newsRecyclerView;
-
     @BindView(R.id.newsDotIndicatorId)
     WormDotsIndicator newsDotIndicator;
     @BindView(R.id.newsViewpagerId)
@@ -108,7 +104,7 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
 
-        newsViewpager.setAdapter(new NewsPageAdapter(list, findViewById(R.id.newsHeaderLayoutId)));
+        newsViewpager.setAdapter(new NewsPageAdapter(list));
         newsDotIndicator.setViewPager(newsViewpager);
 //        newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 //        newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));

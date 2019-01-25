@@ -29,8 +29,6 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
     private final NewspaperLookupRepository newspaperLookupRepository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     protected ProgressLoader loader;
-    private int limit = 0;
-    private int N_ITEM_PAGE = 2;
 
     @Inject
     NewsPresenter(NewsRepository repository, NewspaperLookupRepository newspaperLookupRepository) {
@@ -73,16 +71,7 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
         Log.e(TAG, params.toString());
         compositeDisposable.add(repository
                 .getNews(params.get(0))
-                .flatMap(newsList -> Observable.fromIterable(newsList)
-                        .flatMap(news -> Observable.just(news)
-                                .map(newsDeep -> new URL(newsDeep.getUrl()))
-                                .map(url -> url.getProtocol() + "://" + url.getAuthority())
-                                .doOnNext(url1 -> Log.e(getClass().getName(), url1))
-                                .flatMap(newspaperLookupRepository::getNewspaperInfo)
-                                .doOnNext(newspaperInfo -> news.getSource().setNewspaperName(newspaperInfo.getName()))
-                                .doOnNext(newspaperInfo -> news.getSource().setNewspaperLogoUrl(newspaperInfo.getLogo()))
-                                .map(x -> news))
-                        .toList().toObservable())
+//                .compose(retrieveNewspaperInfo())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(composeLoaderTransformer(loader))
@@ -90,6 +79,25 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
                 .subscribe(
                         items -> newsView.get().onRenderData(items),
                         error -> newsView.get().onError(error.getMessage())));
+    }
+
+    /**
+     *
+     * @return
+     */
+    private ObservableTransformer<List<News>, List<News>> retrieveNewspaperInfo() {
+        return obs -> obs
+                .flatMap(newsList -> Observable.fromIterable(newsList)
+                .flatMap(news -> Observable.just(news)
+                        .map(newsDeep -> new URL(newsDeep.getUrl()))
+                        .map(url -> url.getProtocol() + "://" + url.getAuthority())
+                        .doOnNext(url1 -> Log.e(getClass().getName(), url1))
+                        .flatMap(newspaperLookupRepository::getNewspaperInfo)
+                        .doOnNext(newspaperInfo -> news.getSource().setNewspaperName(newspaperInfo.getName()))
+                        .doOnNext(newspaperInfo -> news.getSource().setNewspaperLogoUrl(newspaperInfo.getLogo()))
+                        .map(x -> news))
+                .toList().toObservable());
+
     }
 
 

@@ -13,6 +13,7 @@ import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
 import com.application.fivnews.utils.Utils;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -71,7 +72,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          * @param avatarUrl
          */
         private void setAvatar(ViewHolder vh, String avatarUrl) {
-            Utils.renderCardViewImage(vh.avatarImageView, ((MaterialCardView) vh.itemView), avatarUrl);
+            try {
+                Utils.renderCardViewImage(vh.avatarImageView, avatarUrl, null);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
 
         /**

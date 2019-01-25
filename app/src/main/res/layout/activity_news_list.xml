@@ -21,26 +21,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/news_header_layout"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/newsViewpagerId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_32"/>
         <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
             android:id="@+id/newsDotIndicatorId"
-            android:layout_marginTop="@dimen/margin_16"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/newsHeaderLayoutId"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:dotsStrokeWidth="1dp"
-            app:dotsColor="@color/colorAccent"
+            app:dotsColor="@color/colorPrimaryDark"
             app:dotsCornerRadius="@dimen/margin_4"
             app:dotsSize="@dimen/margin_8"
             app:dotsSpacing="2dp"
             app:dotsWidthFactor="2.5"
             app:progressMode="true"/>
-        <android.support.v4.view.ViewPager
-            android:id="@+id/newsViewpagerId"
-            android:layout_below="@+id/newsDotIndicatorId"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
     </RelativeLayout>
 </FrameLayout>

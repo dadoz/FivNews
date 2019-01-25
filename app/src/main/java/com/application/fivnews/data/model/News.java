@@ -3,6 +3,9 @@ package com.application.fivnews.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class News {
 
     @SerializedName("source")
@@ -29,6 +32,10 @@ public class News {
     @SerializedName("content")
     @Expose
     private Object content;
+
+    public static boolean isValidUrl(String url) {
+        return url != null && !url.isEmpty() && !url.substring(url.lastIndexOf(".")).equals(".html");
+    }
 
     public Source getSource() {
         return source;
