@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/newsPublisherNameTextViewId"
             android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_32"
             android:orientation="vertical"
             android:fontFamily="@font/khand"
             android:textSize="@dimen/font_22"

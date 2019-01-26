@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     ProgressBar progressBar;
     @BindView(R.id.emptyViewId)
     EmptyView emptyView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Inject
     NewsPresenter presenter;
@@ -77,6 +80,7 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
      * actionbar set listener and back arrow
      */
     private void initActionbar() {
+        setSupportActionBar(toolbar);
 //        if (getSupportActionBar() != null) {
 //            getSupportActionBar().setHomeButtonEnabled(true);
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);

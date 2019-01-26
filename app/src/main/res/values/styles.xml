@@ -1,12 +1,13 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="actionBarStyle">@style/Theme.App.ActionBar</item>
+        <!--<item name="actionBarStyle">@style/Theme.App.ActionBar</item>-->
 
     </style>
+
     <style name="Theme.App.ActionBar" parent="Widget.AppCompat.ActionBar">
         <!-- remove shadow below action bar -->
         <!-- <item name="android:elevation">0dp</item> -->
@@ -14,4 +15,9 @@
         <item name="elevation">0dp</item>
         <item name="background">@color/colorPrimary</item>
     </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/khand_light</item>
+    </style>
+
 </resources>
