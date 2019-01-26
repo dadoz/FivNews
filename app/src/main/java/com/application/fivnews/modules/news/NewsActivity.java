@@ -3,6 +3,7 @@ package com.application.fivnews.modules.news;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.SparseArray;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
+import com.application.fivnews.data.model.NewspaperInfo;
 import com.application.fivnews.modules.news.adapter.NewsPageAdapter;
 import com.application.fivnews.ui.EmptyView;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
@@ -106,8 +108,24 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
 
         newsViewpager.setAdapter(new NewsPageAdapter(list));
         newsDotIndicator.setViewPager(newsViewpager);
-//        newsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//        newsRecyclerView.setAdapter(new NewsListAdapter(list, null, null));
+        newsViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                presenter.retrieveNewspaperInfo(list.get(i));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+        //load first header
+        presenter.retrieveNewspaperInfo(list.get(0));
     }
 
 
@@ -121,13 +139,46 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     }
 
     @Override
+    public void onRenderNewspaperInfo(NewspaperInfo item) {
+        ((NewsPageAdapter) newsViewpager.getAdapter())
+                .onBindHeaderView(getCurrentViewInViewpager(), newsViewpager.getCurrentItem());
+    }
+
+    /**
+     * get current in viewpager
+     * @return
+     */
+    private View getCurrentViewInViewpager() {
+        int position  = newsViewpager.getCurrentItem();
+        return newsViewpager.findViewWithTag(position);
+    }
+
+    @Override
+    public void onErrorNewspaperInfo(String error) {
+        Snackbar.make(findViewById(R.id.activity_main), R.string.retrieve_error,
+                Snackbar.LENGTH_SHORT).show();
+
+    }
+
+    @Override
     public void showStandardLoading() {
         progressBar.setVisibility(View.VISIBLE);
+
+        View view = getCurrentViewInViewpager();
+        if (view != null)
+            ((NewsPageAdapter) newsViewpager.getAdapter())
+                .showLoader(view);
     }
 
     @Override
     public void hideStandardLoading() {
         progressBar.setVisibility(View.GONE);
+
+        View view = getCurrentViewInViewpager();
+        if (view != null)
+            ((NewsPageAdapter) newsViewpager.getAdapter())
+                    .hideLoader(view);
+
     }
 
 

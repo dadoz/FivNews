@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.net.MalformedURLException;
@@ -20,6 +21,7 @@ import java.util.List;
 import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
 import com.application.fivnews.modules.news.NewsPresenter;
+import com.application.fivnews.ui.ProgressLoader;
 import com.application.fivnews.utils.Utils;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -42,8 +44,8 @@ public class NewsPageAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(view.getContext());
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.news_item, view, false);
         onBindView(layout, position);
-        onBindHeaderView(layout, position);
         view.addView(layout);
+        layout.setTag(position);
         return layout;
     }
 
@@ -51,7 +53,7 @@ public class NewsPageAdapter extends PagerAdapter {
      *
      * @param position
      */
-    private void onBindHeaderView(ViewGroup view, int position) {
+    public void onBindHeaderView(View view, int position) {
         ImageView newsPublisherIcon =  view.findViewById(R.id.newsPublisherIconId);
         TextView newsPublisherNameTextView =  view.findViewById(R.id.newsPublisherNameTextViewId);
 
@@ -122,4 +124,12 @@ public class NewsPageAdapter extends PagerAdapter {
         return "news item";
     }
 
+    public void showLoader(View view) {
+        view.findViewById(R.id.newspaperProgressbarId).setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoader(View view) {
+        view.findViewById(R.id.newspaperProgressbarId).setVisibility(View.GONE);
+
+    }
 }
