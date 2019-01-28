@@ -2,14 +2,18 @@ package com.application.fivnews.modules.news.adapter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.card.MaterialCardView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,11 +37,14 @@ import static com.application.fivnews.utils.Utils.getMutedColorFromBitmap;
 
 public class NewsPageAdapter extends PagerAdapter {
     private final List<News> items;
-
     public NewsPageAdapter(List<News> items) {
         this.items = items;
     }
 
+    @Override
+    public float getPageWidth(int position) {
+        return(0.9f);
+    }
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup view, int position) {
@@ -74,12 +81,14 @@ public class NewsPageAdapter extends PagerAdapter {
         ImageView avatarImageView = view.findViewById(R.id.avatarImageViewId);
         MaterialCardView newsMaterialCardview =  view.findViewById(R.id.newsMaterialCardviewId);
 
+
+        newsMaterialCardview.setOnTouchListener((v, event) -> new GestureDetectorCompat(view.getContext(), new CustomOnGestureListener(v)).onTouchEvent(event));
         //new item
         News news = items.get(position);
         newsTitleTextview.setText(news.getTitle());
         newsContentTextview.setText(news.getDescription());
-        newsMaterialCardview.setOnClickListener(v -> newsContentTextview.getContext()
-                .startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.getUrl()))));
+//        newsMaterialCardview.setOnClickListener(v -> newsContentTextview.getContext()
+//                .startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.getUrl()))));
         try {
             Utils.renderCardViewImage(avatarImageView,
                     news.getUrlToImage(), new RequestListener<Bitmap>() {
@@ -131,5 +140,47 @@ public class NewsPageAdapter extends PagerAdapter {
     public void hideLoader(View view) {
         view.findViewById(R.id.newspaperProgressbarId).setVisibility(View.GONE);
 
+    }
+
+    class CustomOnGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final int SLIDE_THRESHOLD = 100;
+        private final View view;
+
+        CustomOnGestureListener(View view) {
+            this.view = view;
+        }
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            try {
+                float deltaY = e2.getY() - e1.getY();
+                float deltaX = e2.getX() - e1.getX();
+
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    return Math.abs(deltaX) > SLIDE_THRESHOLD ?
+                            deltaX > 0 ? onSlideRight() : onSlideLeft() :
+                            deltaY > 0 ? onSlideDown() : onSlideUp();
+                }
+            } catch (Exception exception) {
+                Log.e(getClass().getName(), exception.getMessage());
+            }
+
+            return false;
+        }
+        public boolean onSlideRight() {
+            return false;
+        }
+
+        public boolean onSlideLeft() {
+            return false;
+        }
+
+        public boolean onSlideUp() {
+            view.setBackgroundColor(Color.MAGENTA);
+            return false;
+        }
+
+        public boolean onSlideDown() {
+            return false;
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
@@ -17,8 +18,6 @@ import com.application.fivnews.data.model.News;
 import com.application.fivnews.data.model.NewspaperInfo;
 import com.application.fivnews.modules.news.adapter.NewsPageAdapter;
 import com.application.fivnews.ui.EmptyView;
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,9 +30,9 @@ import dagger.android.support.DaggerAppCompatActivity;
 /**
  * stargazer activity
  */
-public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView {
-    @BindView(R.id.newsDotIndicatorId)
-    WormDotsIndicator newsDotIndicator;
+public class NewsActivity extends DaggerAppCompatActivity implements NewsContract.NewsView, SwipeRefreshLayout.OnRefreshListener {
+    @BindView(R.id.newsSwipeToRefreshLayoutId)
+    SwipeRefreshLayout newsSwipeToRefreshLayout;
     @BindView(R.id.newsViewpagerId)
     ViewPager newsViewpager;
     @BindView(R.id.newsProgressbarId)
@@ -71,6 +70,7 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
      */
     private void onInitView() {
         initActionbar();
+        newsSwipeToRefreshLayout.setOnRefreshListener(this);
         presenter.bindView(this);
         presenter.retrieveItems(params);
     }
@@ -111,7 +111,6 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
         emptyView.setVisibility(View.GONE);
 
         newsViewpager.setAdapter(new NewsPageAdapter(list));
-        newsDotIndicator.setViewPager(newsViewpager);
         newsViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -123,11 +122,16 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) {
+            public void onPageScrollStateChanged(int state) {
+                enableDisableSwipeRefresh( state == ViewPager.SCROLL_STATE_IDLE );
+            }
 
+            private void enableDisableSwipeRefresh(boolean b) {
+                newsSwipeToRefreshLayout.setEnabled(b);
             }
         });
 
+        newsViewpager.setClipChildren(false);
         //load first header
         presenter.retrieveNewspaperInfo(list.get(0));
     }
@@ -193,5 +197,10 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
      */
     public static Intent buildIntent(Context context) {
         return new Intent(context, NewsActivity.class);
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.retrieveItems(params);
     }
 }

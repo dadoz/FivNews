@@ -28,9 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         style="@style/Widget.AppCompat.ProgressBar"/>
-
-    <RelativeLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_marginTop="?attr/actionBarSize"
+        android:id="@+id/newsSwipeToRefreshLayoutId"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
@@ -38,19 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/margin_32"/>
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-            android:id="@+id/newsDotIndicatorId"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:dotsStrokeWidth="1dp"
-            app:dotsColor="@color/colorPrimaryDark"
-            app:dotsCornerRadius="@dimen/margin_4"
-            app:dotsSize="@dimen/margin_8"
-            app:dotsSpacing="2dp"
-            app:dotsWidthFactor="2.5"
-            app:progressMode="true"/>
-    </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>
