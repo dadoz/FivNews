@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Handler().postDelayed(() -> {
             Intent intent = NewsActivity.buildIntent(this);
             startActivity(intent);
+            finish();
         }, 2000);
     }
 

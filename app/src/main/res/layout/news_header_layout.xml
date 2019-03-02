@@ -19,19 +19,15 @@
         <TextView
             android:id="@+id/newsPublisherNameTextViewId"
             android:orientation="vertical"
-            android:fontFamily="@font/helveticaneue_thin"
-            android:textSize="@dimen/font_32"
-            android:textColor="@color/colorPrimary"
+            style="@style/LightNewsStyle.mediumText.Primary"
             tools:text="La Stampa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/newsPublisherDescriptionTextViewId"
             android:orientation="vertical"
-            android:fontFamily="@font/helveticaneue_thin"
-            android:textSize="@dimen/font_18"
             android:layout_marginTop="-10dp"
-            android:textColor="@color/colorPrimary"
+            style="@style/LightNewsStyle.mediumText.Primary"
             tools:text="published at 18:00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

@@ -12,8 +12,7 @@
         android:layout_marginBottom="@dimen/margin_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_18"
-        android:textColor="@color/colorAccent"
+        style="@style/LightNewsStyle.mediumText_24.Accent"
         android:text="@string/intro"/>
 
     <!--country-->
