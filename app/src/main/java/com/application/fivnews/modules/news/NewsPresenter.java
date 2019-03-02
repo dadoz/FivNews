@@ -92,7 +92,7 @@ public class NewsPresenter implements NewsContract.NewsPresenterInterface {
                 .compose(retrieveNewspaperInfo())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(composeLoaderTransformer(loader))
+//                .compose(composeLoaderTransformer(loader))
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(
                         item -> newsView.get().onRenderNewspaperInfo(item),

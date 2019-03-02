@@ -17,7 +17,7 @@
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/khand_light</item>
+        <item name="android:fontFamily">@font/helveticaneue_thin</item>
     </style>
 
 </resources>

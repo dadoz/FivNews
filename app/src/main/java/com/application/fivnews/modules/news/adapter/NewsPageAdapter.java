@@ -45,6 +45,7 @@ public class NewsPageAdapter extends PagerAdapter {
     public float getPageWidth(int position) {
         return(0.9f);
     }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup view, int position) {
@@ -61,12 +62,12 @@ public class NewsPageAdapter extends PagerAdapter {
      * @param position
      */
     public void onBindHeaderView(View view, int position) {
-        ImageView newsPublisherIcon =  view.findViewById(R.id.newsPublisherIconId);
-        TextView newsPublisherNameTextView =  view.findViewById(R.id.newsPublisherNameTextViewId);
+        NewsPaperContentViewHolder viewHolder = new NewsPaperContentViewHolder(view);
 
         News news = items.get(position);
-        Utils.renderCircleImage(newsPublisherIcon, news.getSource().getNewspaperLogoUrl());
-        newsPublisherNameTextView.setText(news.getSource().getNewspaperName());
+//        Utils.renderCircleImage(viewHolder.newsPublisherIcon, news.getSource().getNewspaperLogoUrl());
+        viewHolder.newsPublisherNameTextView.setText(news.getSource().getNewspaperName());
+        viewHolder.newsPublisherDescriptionTextView.setText("Google news");
     }
 
     /**
@@ -76,35 +77,26 @@ public class NewsPageAdapter extends PagerAdapter {
      */
     private void onBindView(ViewGroup view, int position) {
         //get view by item
-        TextView newsContentTextview = view.findViewById(R.id.artistNameTextViewId);
-        TextView newsTitleTextview = view.findViewById(R.id.trackNameTextViewId);
-        ImageView avatarImageView = view.findViewById(R.id.avatarImageViewId);
-        MaterialCardView newsMaterialCardview =  view.findViewById(R.id.newsMaterialCardviewId);
-
-
-        newsMaterialCardview.setOnTouchListener((v, event) -> new GestureDetectorCompat(view.getContext(), new CustomOnGestureListener(v)).onTouchEvent(event));
+        NewsContentViewHolder viewHolder = new NewsContentViewHolder(view);        
         //new item
         News news = items.get(position);
-        newsTitleTextview.setText(news.getTitle());
-        newsContentTextview.setText(news.getDescription());
-//        newsMaterialCardview.setOnClickListener(v -> newsContentTextview.getContext()
-//                .startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.getUrl()))));
+        viewHolder.newsTitleTextview.setText(news.getTitle());
+        viewHolder.newsContentTextview.setText(news.getDescription());
         try {
-            Utils.renderCardViewImage(avatarImageView,
+            Utils.renderCardViewImage(viewHolder.avatarImageView,
                     news.getUrlToImage(), new RequestListener<Bitmap>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                avatarImageView.setImageDrawable(ContextCompat.getDrawable(avatarImageView.getContext(), R.drawable.no_newspaper));
+                                viewHolder.avatarImageView.setImageDrawable(ContextCompat.getDrawable(viewHolder.avatarImageView.getContext(), R.drawable.no_newspaper));
                                 Log.e(getClass().getName(), e.getMessage());
                                 return false;
                             }
 
                             @Override
                             public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                                newsMaterialCardview.setCardBackgroundColor(getMutedColorFromBitmap(avatarImageView.getContext(), resource));
-                                newsTitleTextview.setTextColor(ContextCompat.getColor(newsMaterialCardview.getContext(), R.color.colorPrimary));
-//                                newsTitleTextview.setTextColor(getVibrantColorFromBitmap(avatarImageView.getContext(), resource));
-                                newsContentTextview.setTextColor(getDarkVibrantColorFromBitmap(avatarImageView.getContext(), resource));
+//                                viewHolder.newsMaterialCardview.setCardBackgroundColor(getMutedColorFromBitmap(viewHolder.avatarImageView.getContext(), resource));
+//                                viewHolder.newsTitleTextview.setTextColor(ContextCompat.getColor(viewHolder.newsMaterialCardview.getContext(), R.color.colorPrimary));
+//                                viewHolder.newsContentTextview.setTextColor(getDarkVibrantColorFromBitmap(viewHolder.avatarImageView.getContext(), resource));
                                 return false;
                             }
                         });
@@ -112,6 +104,7 @@ public class NewsPageAdapter extends PagerAdapter {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void destroyItem(ViewGroup collection, int position, Object view) {
@@ -142,45 +135,18 @@ public class NewsPageAdapter extends PagerAdapter {
 
     }
 
-    class CustomOnGestureListener extends GestureDetector.SimpleOnGestureListener {
-        private static final int SLIDE_THRESHOLD = 100;
-        private final View view;
+    class NewsContentViewHolder{
+        private final TextView newsContentTextview;
+        private final TextView newsTitleTextview;
+        private final ImageView avatarImageView;
+        private final MaterialCardView newsMaterialCardview;
 
-        CustomOnGestureListener(View view) {
-            this.view = view;
-        }
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            try {
-                float deltaY = e2.getY() - e1.getY();
-                float deltaX = e2.getX() - e1.getX();
-
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    return Math.abs(deltaX) > SLIDE_THRESHOLD ?
-                            deltaX > 0 ? onSlideRight() : onSlideLeft() :
-                            deltaY > 0 ? onSlideDown() : onSlideUp();
-                }
-            } catch (Exception exception) {
-                Log.e(getClass().getName(), exception.getMessage());
-            }
-
-            return false;
-        }
-        public boolean onSlideRight() {
-            return false;
-        }
-
-        public boolean onSlideLeft() {
-            return false;
-        }
-
-        public boolean onSlideUp() {
-            view.setBackgroundColor(Color.MAGENTA);
-            return false;
-        }
-
-        public boolean onSlideDown() {
-            return false;
+        NewsContentViewHolder(ViewGroup view) {
+            newsContentTextview = view.findViewById(R.id.artistNameTextViewId);
+            newsTitleTextview = view.findViewById(R.id.trackNameTextViewId);
+            avatarImageView = view.findViewById(R.id.avatarImageViewId);
+            newsMaterialCardview =  view.findViewById(R.id.newsMaterialCardviewId);
         }
     }
+
 }

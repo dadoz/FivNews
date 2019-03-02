@@ -2,6 +2,7 @@ package com.application.fivnews;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -14,8 +15,6 @@ import com.application.fivnews.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-//    @BindView(R.id.trackInputDataViewId)
-//    TrackInputDataView trackInputDataView;
     private Unbinder unbinder;
 
     @Override
@@ -37,17 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * init view to handle button in custom view interaction
      */
     private void onInitView() {
-//        trackInputDataView.setFindButtonOnClickListener(this);
-        Intent intent = NewsActivity.buildIntent(this);
-        startActivity(intent);
+        new Handler().postDelayed(() -> {
+            Intent intent = NewsActivity.buildIntent(this);
+            startActivity(intent);
+        }, 2000);
     }
 
     @Override
     public void onClick(View v) {
-//        if (!trackInputDataView.isValidInputData()) {
-//            trackInputDataView.setErrorInputData();
-//            return;
-//        }
 
         Intent intent = NewsActivity.buildIntent(this);
         startActivity(intent);

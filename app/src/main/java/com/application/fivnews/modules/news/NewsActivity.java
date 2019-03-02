@@ -12,6 +12,7 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.application.fivnews.R;
 import com.application.fivnews.data.model.News;
@@ -39,6 +40,8 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
     ProgressBar progressBar;
     @BindView(R.id.emptyViewId)
     EmptyView emptyView;
+    @BindView(R.id.newsPublisherSourceTextViewId)
+    TextView newsPublisherSourceTextView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -110,6 +113,8 @@ public class NewsActivity extends DaggerAppCompatActivity implements NewsContrac
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
 
+        newsPublisherSourceTextView.setText(list.get(0).getSource().getName());
+        newsPublisherSourceTextView.setOnClickListener(v -> Log.e(getClass().getName(), "blallallalalla"));
         newsViewpager.setAdapter(new NewsPageAdapter(list));
         newsViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

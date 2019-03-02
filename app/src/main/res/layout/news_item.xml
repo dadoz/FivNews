@@ -43,9 +43,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
-                    android:fontFamily="@font/khand"
+                    android:fontFamily="@font/helveticaneue_thin"
                     android:layout_marginBottom="@dimen/margin_8"
-                    android:maxLines="3"
+                    android:maxLines="2"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/font_22"
                     tools:text="this is a title to present our news" />
@@ -53,9 +53,9 @@
                     android:id="@+id/artistNameTextViewId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimary"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/khand_light"
+                    android:fontFamily="@font/helveticaneue_thin"
                     tools:text="this is content of nes...."
                     android:textSize="@dimen/font_14"/>
 
