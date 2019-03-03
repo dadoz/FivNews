@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/avatarImageViewId"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/alfa_giulia"/>
             <LinearLayout
@@ -38,9 +38,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
-                    android:layout_marginBottom="@dimen/margin_8"
                     android:maxLines="2"
-                    style="@style/LightNewsStyle.mediumText_24.Accent"
+                    style="@style/LightNewsStyle.mediumText_22.Accent"
                     tools:text="this is a title to present our news" />
                 <TextView
                     android:id="@+id/artistNameTextViewId"
@@ -48,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     tools:text="this is content of nes...."
-                    style="@style/LightNewsStyle.mediumText.Primary"/>
+                    style="@style/LightNewsStyle.mediumText_18.Primary"/>
 
             </LinearLayout>
         </RelativeLayout>

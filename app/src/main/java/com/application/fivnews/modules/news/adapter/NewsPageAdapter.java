@@ -43,7 +43,7 @@ public class NewsPageAdapter extends PagerAdapter {
 
     @Override
     public float getPageWidth(int position) {
-        return(0.9f);
+        return(0.8f);
     }
 
     @NonNull

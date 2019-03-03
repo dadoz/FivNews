@@ -1,7 +1,4 @@
-{
-  "status": "ok",
-  "totalResults": 10,
-  "articles": [
+[
     {
       "source": {
         "id": "google-news-it",
@@ -133,4 +130,3 @@
       "content": "Africa, l'ex presidente ivoriano Gbagbo assolto dalla Corte Penale Internazionale dall'accusa di crimini contro l'umanità Laurent Gbabbo è stato assolto dall'accusa di aver compiuto crimini contro l'umanità durante le violenze post-elettorali del 2010-2011, n… [+3545 chars]"
     }
   ]
-}

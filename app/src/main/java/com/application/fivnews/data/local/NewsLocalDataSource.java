@@ -1,8 +1,16 @@
 package com.application.fivnews.data.local;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+
 import com.application.fivnews.data.NewsDataSource;
 import com.application.fivnews.data.model.News;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -14,17 +22,30 @@ import io.reactivex.Observable;
  */
 @Singleton
 public class NewsLocalDataSource implements NewsDataSource {
+
+    private final Context context;
+
+    public NewsLocalDataSource(Context context) {
+        this.context = context;
+    }
     @Override
     public Observable<List<News>> getNews(String request, String apiKey) {
-        return null;
+        try {
+            InputStream stream = context.getAssets().open("news_success_response.json");
+            int size = stream.available();
+            byte[] buffer = new byte[size];
+            stream.read(buffer);
+            stream.close();
+            ArrayList obj = new Gson().fromJson(new String(buffer), new TypeToken<ArrayList<News>>() {}.getType());
+            return Observable.just(obj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Observable.just(new ArrayList<>());
     }
 
 //    @Override
 //    public boolean hasLyrics(String trackId) {
-//        try (Realm realm = Realm.getDefaultInstance()) {
-//            return realm.where(News.class).equalTo("trackId", trackId)
-//                    .findFirst() != null;
-//        }
 //    }
 
     /**
@@ -35,13 +56,6 @@ public class NewsLocalDataSource implements NewsDataSource {
      */
 //    @Override
 //    public Observable<News> getLyrics(String trackId, String apiKey) {
-//        return Observable.just(Realm.getDefaultInstance())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .flatMap(realm -> realm
-//                        .where(News.class).equalTo("trackId", trackId)
-//                        .findFirst()
-//                        .<News>asFlowable()
-//                        .toObservable());
 //    }
 
     /**
@@ -51,15 +65,5 @@ public class NewsLocalDataSource implements NewsDataSource {
      */
 //    @Override
 //    public void setLyrics(News lyric, String trackId) {
-//        Single.create((SingleOnSubscribe<Void>) singleSubscriber -> {
-//            try (Realm r = Realm.getDefaultInstance()) {
-//                r.executeTransaction(realm -> {
-//                    lyric.setTrackId(trackId);
-//                    realm.copyToRealm(lyric);
-//                });
-//            }})
-//                .subscribeOn(Schedulers.io())
-//                .subscribe();
-//
 //    }
 }

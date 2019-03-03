@@ -65,7 +65,9 @@
         android:id="@+id/newsSwipeToRefreshLayoutId"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,13 +84,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16"
-                    style="@style/LightNewsStyle.mediumText_24.Accent"
+                    style="@style/LightNewsStyle.smallText_14.Accent"
                     android:text="Top 5 top treadings"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:layout_marginBottom="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:layout_marginBottom="@dimen/margin_8"
                     android:layout_height="100dp"
                     android:gravity="center_vertical">
 
@@ -98,8 +101,8 @@
                         android:layout_marginStart="@dimen/margin_16"
                         android:orientation="vertical">
                         <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="@dimen/ln_logo_newspaper_width"
+                            android:layout_height="@dimen/ln_logo_newspaper_width"
                             android:layout_gravity="center"
                             android:src="@drawable/verge_logo"
                             />
@@ -108,17 +111,17 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/margin_4"
-                            style="@style/LightNewsStyle.mediumText.Primary"
+                            style="@style/LightNewsStyle.smallText_14.Primary"
                             android:text="Verge"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginStart="@dimen/margin_8"
                         android:orientation="vertical">
                         <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="@dimen/ln_logo_newspaper_width"
+                            android:layout_height="@dimen/ln_logo_newspaper_width"
                             android:layout_gravity="center"
                             android:src="@drawable/times_logo"
                             />
@@ -127,18 +130,18 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/margin_4"
-                            style="@style/LightNewsStyle.mediumText.Primary"
+                            style="@style/LightNewsStyle.smallText_14.Primary"
                             android:text="Times"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginStart="@dimen/margin_8"
                         android:orientation="vertical">
                         <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="@dimen/ln_logo_newspaper_width"
+                            android:layout_height="@dimen/ln_logo_newspaper_width"
                             android:layout_gravity="center"
                             android:src="@drawable/stampa_logo"
                             />
@@ -147,17 +150,17 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/margin_4"
-                            style="@style/LightNewsStyle.mediumText.Primary"
+                            style="@style/LightNewsStyle.smallText_14.Primary"
                             android:text="Stampa"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginStart="@dimen/margin_8"
                         android:orientation="vertical">
                         <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="@dimen/ln_logo_newspaper_width"
+                            android:layout_height="@dimen/ln_logo_newspaper_width"
                             android:layout_gravity="center"
                             android:src="@drawable/rainews_logo"
                             />
@@ -166,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/margin_4"
-                            style="@style/LightNewsStyle.mediumText.Primary"
+                            style="@style/LightNewsStyle.smallText_14.Primary"
                             android:text="RaiNews"/>
                     </LinearLayout>
 
@@ -182,9 +185,9 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/newsViewpagerId"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"/>
-
-            </LinearLayout>
+                    android:layout_height="600dp"/>
+           </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

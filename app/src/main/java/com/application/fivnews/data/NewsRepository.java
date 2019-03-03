@@ -19,12 +19,12 @@ import io.reactivex.Observable;
 
 public class NewsRepository {
 
-//    private final NewsDataSource localDataSource;
+    private final NewsDataSource localDataSource;
     private final NewsDataSource networkDataSource;
 
     @Inject
     NewsRepository(Context context, @Local NewsDataSource localDataSource, @Remote NewsDataSource networkDataSource) {
-//        this.localDataSource = localDataSource;
+        this.localDataSource = localDataSource;
         this.networkDataSource = networkDataSource;
     }
 
@@ -37,6 +37,8 @@ public class NewsRepository {
 //                .doOnNext(items -> localDataSource.setLyrics(items, trackId));
 //        if (localDataSource.hasLyrics(trackId)) {
 //            //show data from cache
+//        return localDataSource.getNews(source, BuildConfig.API_KEY);
+
 //            return localDataSource.getLyrics(trackId, BuildConfig.API_KEY);
 //        }
 //

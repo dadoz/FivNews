@@ -1,5 +1,7 @@
 package com.application.fivnews.data;
 
+import android.content.Context;
+
 import com.application.fivnews.data.local.Local;
 import com.application.fivnews.data.local.NewsLocalDataSource;
 import com.application.fivnews.data.model.NewspaperInfo;
@@ -18,8 +20,8 @@ public class NewsRepositoryModule {
     @Provides
     @Singleton
     @Local
-    NewsDataSource provideNewsLocalDataSource() {
-        return new NewsLocalDataSource();
+    NewsDataSource provideNewsLocalDataSource(Context context) {
+        return new NewsLocalDataSource(context);
     }
 
     @Provides
